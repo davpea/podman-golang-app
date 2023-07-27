@@ -1,11 +1,11 @@
 FROM golang AS builder
 WORKDIR /go/src/github.com/alexellis/href-counter/  
 RUN go install golang.org/x/net/html
-COPY ./app.go ./go.mod ./
+COPY ./ubigoapp.go ./go.mod ./
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o ubigoapp .
 
 FROM registry.access.redhat.com/ubi9:9.2-696
 WORKDIR /
 COPY --from=builder /go/src/github.com/alexellis/href-counter/app /
 EXPOSE 8080
-CMD ["./app"]
+CMD ["./ubigoapp"]
