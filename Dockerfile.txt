@@ -2,9 +2,9 @@ FROM golang AS builder
 WORKDIR /go/src/github.com/alexellis/href-counter/
 RUN go get -d -v golang.org/x/net/html  
 COPY ./app.go ./go.mod ./
-RUN CGO_ENABLED=0 GOOS=linux go build -a -o app .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o ubigoapp .
 
-FROM registry.access.redhat.com/ubi8/ubi-micro
+FROM registry.access.redhat.com/ubi9:9.2-696
 WORKDIR /
 COPY --from=builder /go/src/github.com/alexellis/href-counter/app /
 EXPOSE 8080
