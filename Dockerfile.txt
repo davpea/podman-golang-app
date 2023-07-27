@@ -1,6 +1,6 @@
 FROM golang AS builder
 WORKDIR /go/src/github.com/alexellis/href-counter/  
-RUN go install golang.org/x/net/html
+RUN go install pkg.go.dev/golang.org/x/net/html
 COPY ./ubigoapp.go ./go.mod ./
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o ubigoapp .
 
